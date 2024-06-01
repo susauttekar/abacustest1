@@ -51,7 +51,7 @@ export default class BundleTable extends LightningElement {
     { label: "Family", fieldName: "Family", type: "text" },
     { label: "Quantity", fieldName: "Quantity", type: "number" },
     { label: "Sales Price", fieldName: "UnitPrice", type: "currency" },
-    { label: "Price Term", fieldName: "SalesPriceTerm", type: "currency" },
+    { label: "Price Term", fieldName: "SalesPriceTerm", type: "text" },
     {
       label: "Set-Up Price",
       fieldName: "Setup_Fee_Product",
@@ -94,7 +94,7 @@ export default class BundleTable extends LightningElement {
     let dataReceived = event.detail.data;
     this.updateDraftValues(
       {
-        Id: dataReceived.context,
+        [this.keyField]: dataReceived.context,
         [dataReceived.fieldName]: dataReceived.value ? dataReceived.value : null
       },
       dataReceived.fieldName
