@@ -199,7 +199,8 @@ export default class ProductBundlerApp extends LightningModal {
     if (data) {
       this.existingProducts = data.map((e) => ({
         ...e,
-        bundleName: e.Bundle__c ? e.Bundle__r?.Name : ""
+        bundleName: e.Bundle__c ? e.Bundle__r?.Name : "",
+        key: e.Id
       }));
     }
   }
@@ -280,6 +281,7 @@ export default class ProductBundlerApp extends LightningModal {
       const fields = Object.assign({}, draftValue);
       return { fields };
     });
+    debugger;
     const updatedProducts = [];
     for (const finalProduct of this.finalProducts) {
       const record = records.find(
@@ -289,7 +291,7 @@ export default class ProductBundlerApp extends LightningModal {
       if (record) {
         // eslint-disable-next-line guard-for-in
         for (const field in record.fields) {
-          if (field !== "Id") {
+          if (field !== "key") {
             product[field] = record.fields[field];
           }
         }
