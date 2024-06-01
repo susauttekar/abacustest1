@@ -1,0 +1,11 @@
+<template>
+    <div class="slds-p-around_x-small">
+        <!-- <lightning-combobox name="picklist" data-inputable="true" label={typeAttributes.label} value={editedValue}
+        placeholder={typeAttributes.placeholder} options={typeAttributes.options}  variant='label-hidden'
+        dropdown-alignment="auto"></lightning-combobox> -->
+        <!-- <lightning-input-field field-name={typeAttributes.name} placeholder={typeAttributes.placeholder}
+            value={editedValue} type="text" variant="label-hidden"></lightning-input-field> -->
+        <c-cell-combobox value={value} options={typeAttributes.options} context={typeAttributes.context}
+            field-name={typeAttributes.fieldName}></c-cell-combobox>
+    </div>
+</template>

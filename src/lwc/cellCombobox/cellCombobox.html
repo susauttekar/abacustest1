@@ -1,0 +1,20 @@
+<template>
+    <div>
+        <div if:true={showPicklist} onmouseleave={closePicklist}>
+            <lightning-combobox name="picklist" autofocus data-id="Picklist Combobox" variant="label-hidden"
+                value={value} options={_options} onchange={handleChange}>
+            </lightning-combobox>
+        </div>
+
+        <div if:false={showPicklist} class="slds-table_edit_container slds-is-relative">
+            <span class="slds-grid slds-grid_align-spread slds-cell-edit" ondblclick={editPicklist}>
+                <span class="slds-truncate slds-col slds-var-m-right_small" title={value}>{value}</span>
+                <lightning-button-icon variant="bare" icon-name="utility:edit" data-id={context}
+                    class="slds-col slds-cell-edit__button slds-m-left_x-small" tabindex="-1" title="Edit" name="tes"
+                    onclick={editPicklist} data-name="edit">
+                    <span class="slds-assistive-text">Edit</span>
+                </lightning-button-icon>
+            </span>
+        </div>
+    </div>
+</template>

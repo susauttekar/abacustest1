@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Message Channel to pass messages between the bundler components</description>
+    <isExposed>true</isExposed>
+    <lightningMessageFields>
+        <description>This is the state of the modal.</description>
+        <fieldName>isOpen</fieldName>
+    </lightningMessageFields>
+    <masterLabel>Bundler</masterLabel>
+</LightningMessageChannel>

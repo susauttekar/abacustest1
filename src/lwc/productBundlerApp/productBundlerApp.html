@@ -1,0 +1,88 @@
+<template>
+    <lightning-modal-header label="Product Bundler"></lightning-modal-header>
+    <lightning-modal-body>
+        <div class="wrapper">
+            <lightning-progress-indicator current-step={currentStep}>
+                <lightning-progress-step label="Pricebook" value="pricebook">
+                </lightning-progress-step>
+                <lightning-progress-step label="Build Products" value="products">
+                </lightning-progress-step>
+                <lightning-progress-step label="Addendum" value="addendum">
+                </lightning-progress-step>
+                <lightning-progress-step label="Success" value="success">
+                </lightning-progress-step>
+            </lightning-progress-indicator>
+            <div class="slds-p-around_small slds-grid slds-grid_pull-padded slds-wrap">
+                <lightning-record-edit-form lwc:if={isPricebookStep}
+                    class="slds-col slds-size_5-of-5 slds-grid_align-center" object-api-name={objectApiName}
+                    onsuccess={handleSuccess} lwc:ref="editor" record-id={recordId}>
+                    <lightning-messages></lightning-messages>
+                    <lightning-input-field field-name="Name" readonly="true"
+                        variant="label-inline"></lightning-input-field>
+                    <lightning-input-field placeholder="Search Pricebooks" field-name="Pricebook2Id"
+                        variant="label-inline"></lightning-input-field>
+                </lightning-record-edit-form>
+                <div lwc:if={isProductStep} class="slds-col slds-size_1-of-5">
+                    <c-bundler-panel record-id={priceBookId} onaddbundle={handleLoadBundle}
+                        onremovebundle={handleRemoveBundle}></c-bundler-panel>
+                </div>
+                <div class="slds-col slds-size_4-of-5 slds-p-left_small">
+
+                    <template for:each={selectedBundles} for:item="bundle">
+                        <div lwc:if={isProductStep} key={bundle.id}>
+                            <h2 class="slds-text-heading_medium">{bundle.name}</h2>
+                            <c-bundle-table selected-rows={bundle.selectedRows} key-field="key"
+                                onselect={handleFinalSelect} name={bundle.id} onupdateproducts={handleUpdateProducts}
+                                items={bundle.products}></c-bundle-table>
+                        </div>
+
+                    </template>
+                </div>
+            </div>
+            <div lwc:if={isAddendumStep} class="slds-col slds-size_5-of-5 slds-var-m-top_medium">
+                <h1 class="slds-text-heading_medium slds-text-align_center">Added Products</h1>
+                <c-bundle-table onsave={handleSaveFinal} hide-checkbox-column="true" editable="true"
+                    columns={existingColumns} key-field="key" onupdateproducts={handleUpdateFinalProducts}
+                    items={finalProducts}></c-bundle-table>
+            </div>
+            <div lwc:if={showExisting} class="slds-col slds-size_5-of-5 slds-var-m-top_medium">
+                <h1 class="slds-text-heading_medium slds-text-align_center">Existing Products</h1>
+                <c-bundle-table onsave={handleSaveExisting} hide-checkbox-column="true" editable="true"
+                    items={existingProducts} columns={existingColumns} key-field="Id"></c-bundle-table>
+            </div>
+            <div lwc:if={isSuccessStep} class="slds-col slds-size_5-of-5 slds-var-m-top_medium">
+                <div class="success">
+                    <h1 class="slds-text-heading_medium">Success</h1>
+                    <div class="slds-text-align_center slds-align_absolute-center ">
+                        <lightning-icon icon-name="utility:success" variant="success" size="large"
+                            alternative-text="Success">
+                        </lightning-icon>
+                        <br />
+                    </div>
+                    <div class="slds-text-align_center">
+                        <p>Products have been added successfully.</p>
+                        <p>Closing in {successCount}...</p>
+                    </div>
+                </div>
+            </div>
+
+            <lightning-spinner alternative-text="Loading" lwc:if={isLoading} variant="brand" size="medium">
+            </lightning-spinner>
+        </div>
+
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <footer>
+
+            <lightning-button variant="neutral" class="cancel" label="Cancel" onclick={handleClose}></lightning-button>
+            <div>
+
+                <lightning-button variant="neutral" label="Previous" onclick={handlePrevious}
+                    if:true={hasPrevious}></lightning-button>
+
+                <lightning-button variant="brand" label={submitLabel} class="slds-m-left_x-small"
+                    onclick={handleSubmit}></lightning-button>
+            </div>
+        </footer>
+    </lightning-modal-footer>
+</template>

@@ -1,0 +1,28 @@
+<template>
+    <div>
+        <div class="slds-m-vertical_medium">
+            <lightning-input name="search" type="search" placeholder="Search bundles" value={searchVal}
+                onchange={handleSearch} label="Search"></lightning-input>
+        </div>
+        <ul class="slds-has-dividers_around-space" lwc:if={renderBundles.length}>
+            <li data-id={bundle.Id} class="slds-item" for:each={renderBundles} for:item="bundle" key={bundle.Id}
+                if:true={bundle.visible}>
+                <article class="slds-tile slds-tile_board">
+                    <h3 class="slds-tile__title slds-truncate" title={bundle.Name}>
+                        <span class="slds-text-heading_small">{bundle.Name}</span>
+                    </h3>
+                    <div class="slds-tile__detail details">
+                        <p class="slds-text-body_regular">{bundle.products.length} products(s)</p>
+                        <lightning-button-icon onclick={handleAddBundle} data-id={bundle.Id} data-type="bundle"
+                            data-name={bundle.Name} icon-name="utility:add" alternative-text="Add Bundle"
+                            variant="brand" label="Add" size="small"
+                            class="slds-m-left_x-small"></lightning-button-icon>
+                    </div>
+                </article>
+            </li>
+        </ul>
+        <div lwc:else>
+            <div class="slds-text-align_center slds-text-title">No bundles found.</div>
+        </div>
+    </div>
+</template>

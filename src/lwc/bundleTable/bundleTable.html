@@ -1,0 +1,21 @@
+<template>
+    <div class="slds-grid slds-grid_vertical">
+        <div if:false={hideCheckboxColumn}
+            class="slds-p-vertical_x-small slds-p-horizontal_large slds-shrink-none slds-theme_shade">
+
+            <div class="slds-text-title slds-m-top_x-small" aria-live="polite">{selectedCount} Item(s)
+                Selected</div>
+        </div>
+        <div class="slds-scrollable slds-grow">
+            <div class="slds-scrollable_none">
+                <c-custom-datatable onpicklistchanged={customTypeChanged} lwc:if={items.length} onsave={handleSave}
+                    draft-values={draftValues} data={items} columns={columns} key-field={keyField}
+                    onrowaction={handleRowAction} selected-rows={selectedKeys} hide-checkbox-column={hideCheckboxColumn}
+                    onrowselection={handleRowSelection}></c-custom-datatable>
+                <div lwc:else>
+                    <div class="slds-text-align_center slds-text-title">No items selected</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

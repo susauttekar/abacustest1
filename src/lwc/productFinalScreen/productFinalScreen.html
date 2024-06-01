@@ -1,0 +1,82 @@
+<template>
+  <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead class="slds-line-height_reset">
+              <tr>
+                <th>Line Num</th>
+                <template for:each={headers0} for:item="header0" for:index="indexVar">
+                    <th key={header0.propertyName} scope="col" >
+                      {header0.displayName}
+                     
+                    </th>
+                </template>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template for:each={productList} for:index="idx" for:item="item">
+                <tr key={item.lineNum} class="quote-item">
+                  <td  colspan="1">{item.lineNum}</td>
+                   <td  colspan="1">
+                   {item.Name}
+                  </td>
+               
+                  <td  colspan="1">
+                    <lightning-input data-row-id={item.Id} oncommit={handleChange} value={item.Quantity} style="width: 50px"
+                      name="Quantity" variant="label-hidden">
+                    </lightning-input>
+                  </td>
+
+                 <td  colspan="1">
+                  <lightning-input data-row-id={item.Id} formatter="currency" oncommit={handleChange}
+                  value={item.Setup_Fee_Product__c} type="number" name="Setup_Fee_Product__c" variant="label-hidden" >
+                </lightning-input>
+                 </td>
+                
+                 <td  colspan="1">
+                  <lightning-input data-row-id={item.Id} formatter="currency" oncommit={handleChange}
+                  value={item.Set_Up_Fee_Product_Discount__c} type="number" name="Set_Up_Fee_Product_Discount__c" variant="label-hidden" >
+                </lightning-input>
+                 </td>
+                
+                 <td  colspan="1">
+                  <lightning-input data-row-id={item.Id} formatter="currency" oncommit={handleChange}
+                  value={item.UnitPrice} type="number" name="UnitPrice" variant="label-hidden" >
+                </lightning-input>
+                 </td>
+                
+                 <td  colspan="1">
+                  <lightning-input data-row-id={item.Id} formatter="currency" oncommit={handleChange}
+                  value={item.Sales_Price_Discount__c} type="number" name="Sales_Price_Discount__c" variant="label-hidden" >
+                </lightning-input>
+                 </td>
+                
+                
+                  <td  colspan="1">
+                    <lightning-combobox data-row-id={item.Id} onchange={handleChange} value={item.Sales_Price_Term__c} name="Sales_Price_Term__c"
+                      variant="label-hidden"   options={salesPriceTerm}>
+                    </lightning-combobox>
+                  </td>
+
+                  <td  colspan="1">
+                    <lightning-input data-row-id={item.Id} oncommit={handleChange} value={item.Comment__c}
+                      name="Comment__c" variant="label-hidden"  >
+                    </lightning-input>
+                  </td>
+                   <td>
+                <lightning-button data-row-id={item.Id} icon-name="utility:delete" onclick={handleRemove}
+                  variant="destructive" label="">
+                </lightning-button>
+              </td>
+                </tr></template>
+            </tbody>
+             
+  </table>
+        <footer class="slds-modal__footer">
+            <lightning-button  
+                    label="Save"
+                    onclick={handleSave}
+                    variant="brand"
+            >
+            </lightning-button>
+        </footer>
+</template>
