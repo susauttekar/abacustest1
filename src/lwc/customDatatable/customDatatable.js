@@ -5,7 +5,7 @@ export default class CustomDatatable extends LightningDatatable {
     picklist: {
       template: picklistEditable,
       standardCellLayout: true,
-      typeAttributes: ["options", "fieldName", "context"]
+      typeAttributes: ["options", "fieldName", "context","product2Id","bundleId","quantity"]
     }
   };
 

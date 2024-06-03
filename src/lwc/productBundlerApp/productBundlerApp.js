@@ -73,7 +73,10 @@ export default class ProductBundlerApp extends LightningModal {
         options: JSON.stringify(this.priceTermOptions),
         placeholder: "Choose Term",
         fieldName: "Sales_Price_Term__c",
-        context: { fieldName: "Sales_Price_Term__c" }
+        context: { fieldName: "Sales_Price_Term__c" },
+        product2Id:{ fieldName: "Product2Id" },
+        bundleId: { fieldName: "Bundle__c" },
+        quantity: { fieldName: "Quantity"}
       }
     };
   }
@@ -262,6 +265,7 @@ export default class ProductBundlerApp extends LightningModal {
     }
   }
   handleUpdateFinalProducts(event) {
+      console.log( '@ sus handle final product '+JSON.stringify(event));
     const { items } = event.detail;
     if (Array.isArray(items)) {
       this.finalProducts = [...this.finalProducts, ...items];
@@ -277,21 +281,30 @@ export default class ProductBundlerApp extends LightningModal {
   debounceTimeout = null;
 
   handleSaveFinal(event) {
+    console.log('@ sus 1 save data '+JSON.stringify((event.detail)));
     const records = event.detail.draftValues.slice().map((draftValue) => {
       const fields = Object.assign({}, draftValue);
       return { fields };
     });
+    console.log('@ sus 2 records '+JSON.stringify((records)));
+    console.log('@ sus 3 final Products '+JSON.stringify((this.finalProducts)));
     debugger;
     const updatedProducts = [];
     for (const finalProduct of this.finalProducts) {
+      console.log('@ sus 4 final Product '+JSON.stringify((finalProduct)));
       const record = records.find(
         (recordTarget) => recordTarget.fields.key === finalProduct.key
       );
+      console.log('@ sus 5 record '+JSON.stringify((record)));
       const product = Object.assign({}, finalProduct);
+      console.log('@ sus 6 product '+JSON.stringify((product)));
       if (record) {
+        console.log('@ sus 7 record.fields '+JSON.stringify((record.fields)));
         // eslint-disable-next-line guard-for-in
         for (const field in record.fields) {
+          console.log('@ sus 8 field '+JSON.stringify((field)));
           if (field !== "key") {
+            console.log('@ sus 9 '+JSON.stringify((field)));
             product[field] = record.fields[field];
           }
         }
